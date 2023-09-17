@@ -1,21 +1,12 @@
-EXEC = hw4_mm_test
-TARGETS = $(EXEC)
+TARGETS = hw_malloc.o
 CC ?= gcc
-CFLAGS += -g -std=gnu99 -I./lib -Wall
-OBJS = hw4_mm_test.o ./lib/hw_malloc.o
-SUBDIR = ./lib
+CFLAGS += -g -std=gnu99 -Wall
+OBJS = $(TARGETS)
 
 all: $(TARGETS)
 
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
-
-hw4_mm_test.o: %.o: %.c
+$(OBJS): %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./lib/hw_malloc.o:
-	$(MAKE) -C $(SUBDIR)
-
 clean:
-	rm -rf *.o $(EXEC)
-	$(MAKE) -C $(SUBDIR) clean
+	rm -rf *.o
